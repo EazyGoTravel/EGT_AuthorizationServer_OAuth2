@@ -13,7 +13,24 @@ import com.nimbusds.jose.jwk.RSAKey;
 @Component
 public class KeyManager {
 
-	public RSAKey rsaKey() throws NoSuchAlgorithmException {
+	private static KeyManager instance;
+
+	private KeyManager() {
+
+	}
+
+	public static KeyManager getInstance() {
+		synchronized (instance) {
+			if (instance == null) {
+				instance = new KeyManager();
+
+			}
+			return instance;
+		}
+
+	}
+
+	public RSAKey getRSAKey() throws NoSuchAlgorithmException {
 
 		var kpGen = KeyPairGenerator.getInstance("RSA");
 		kpGen.initialize(2048);
