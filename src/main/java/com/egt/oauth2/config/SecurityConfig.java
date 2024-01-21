@@ -1,12 +1,8 @@
 package com.egt.oauth2.config;
 
-import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
-import java.security.interfaces.RSAPrivateKey;
-import java.security.interfaces.RSAPublicKey;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -35,7 +31,6 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
 
 import com.egt.oauth2.keys.KeyManager;
 import com.nimbusds.jose.jwk.JWKSet;
-import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
@@ -108,7 +103,7 @@ public class SecurityConfig {
 	public JWKSource<SecurityContext> jwkSource() throws NoSuchAlgorithmException {
 
 		var rsaKey = KeyManager.getInstance().getRSAKey();
-		JWKSet jwkSet = new JWKSet(rsaKey);
+		var jwkSet = new JWKSet(rsaKey);
 		return new ImmutableJWKSet<>(jwkSet);
 	}
 

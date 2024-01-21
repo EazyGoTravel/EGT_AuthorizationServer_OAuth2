@@ -20,13 +20,17 @@ public class KeyManager {
 	}
 
 	public static KeyManager getInstance() {
-		synchronized (instance) {
-			if (instance == null) {
-				instance = new KeyManager();
 
+		// Implementing Double checked lock on Singleton class
+		if (instance == null) {
+			synchronized (KeyManager.class) {
+				if (instance == null) {
+					instance = new KeyManager();
+				}
 			}
-			return instance;
+
 		}
+		return instance;
 
 	}
 
